@@ -1,0 +1,16 @@
+services:
+  nginx:
+    image: nginx:1.25.5
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - core
+
+  core:
+    build:
+      context: ./core
+    working_dir: /app
+    ports:
+      - "3000:3000"
