@@ -6,11 +6,15 @@ services:
     volumes:
       - ./nginx/default.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - core
+      - core1
+      - core2
 
-  core:
+  core1:
     build:
       context: ./core
     working_dir: /app
-    ports:
-      - "3000:3000"
+
+  core2:
+    build:
+      context: ./core
+    working_dir: /app
