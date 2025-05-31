@@ -8,6 +8,7 @@ import (
 	"html/template"
 	"time"
 	"io"
+	"os"
 )
 
 type Template struct {
@@ -29,16 +30,20 @@ func main() {
 
 	delaySeconds := 3	
 
+	hostname, _ := os.Hostname()
+
 	e.GET(`/:text`, func(c echo.Context) error {
-			param := c.Param("text")
+		param := c.Param("text")
+		upstream := hostname
 
-			data := map[string]string{
-				"param": param,
-			}
+		data := map[string]string{
+			"param": param,
+			"upstream": upstream,
+		}
 
-			time.Sleep(time.Duration(delaySeconds) * time.Second)
+		time.Sleep(time.Duration(delaySeconds) * time.Second)
 
-			return c.Render(http.StatusOK, "index.html", data)
+		return c.Render(http.StatusOK, "index.html", data)
 	})
 
 	e.Logger.Fatal(e.Start(":3000"))
