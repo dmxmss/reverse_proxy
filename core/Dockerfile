@@ -13,6 +13,7 @@ FROM scratch
 WORKDIR /app
 
 COPY --from=builder /usr/src/app/app .
+COPY --from=builder /usr/src/app/templates ./templates
 
 EXPOSE 3000
 
